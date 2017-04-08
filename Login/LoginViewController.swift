@@ -18,20 +18,50 @@ class LoginViewController: UIViewController {
     }
 
     // TODO: instantiate the views needed for your project
+    let loginBtn = UIButton(frame: CGRect(x: 0.25 * UIScreen.main.bounds.width, y: 100, width: 150, height: 40))
+    let loginViewControllerLabel = UILabel(frame: CGRect(x: 100, y: 50, width: 0.8 * UIScreen.main.bounds.width, height: 200))
+    let accountTextField = UITextField(frame: CGRect(x: 10, y: 30, width: 0.9 * UIScreen.main.bounds.width, height: 20))
+    let passwordTextField = UITextField(frame: CGRect(x: 10, y: 70, width: 0.9 * UIScreen.main.bounds.width, height: 20))
+    let loginUIView = UIView(frame: CGRect(x: 0.05 * UIScreen.main.bounds.width, y: 100, width: 0.9 * UIScreen.main.bounds.width, height: 150))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.backgroundColor
         
         // TODO: Add your views either as subviews of `view` or subviews of each other using `addSubview`
+        loginBtn.setTitle("Login", for: .normal)
+        loginBtn.backgroundColor = Constants.backgroundColor
+        loginBtn.layer.cornerRadius = 8
+        loginBtn.addTarget(self, action:#selector(loginButtonClicked), for:.touchUpInside)
+        
+        loginUIView.center = view.center
+        loginUIView.backgroundColor = .white
+        
+        loginViewControllerLabel.text = "Login View Controller"
+        loginViewControllerLabel.numberOfLines = 0
+        loginViewControllerLabel.textColor = .white
+        loginViewControllerLabel.font = UIFont (name: "Helvetica Neue", size: 40)
+        
+        accountTextField.placeholder = "berkeley.edu account"
+        
+        passwordTextField.placeholder = "Password"
+        
+        view.addSubview(loginViewControllerLabel)
+        view.addSubview(loginUIView)
+        loginUIView.layer.cornerRadius = 8
+        loginUIView.addSubview(loginBtn)
+        loginUIView.addSubview(accountTextField)
+        loginUIView.addSubview(passwordTextField)
         
         // TODO: layout your views using frames or AutoLayout
     }
     
     // TODO: create an IBAction for your login button
-    
-    
-    
+
+    @IBAction func loginButtonClicked(sender:UIButton!) {
+        authenticateUser(username: accountTextField.text, password: passwordTextField.text)
+    }
+
     
     
     /// YOU DO NOT NEED TO MODIFY ANY OF THE CODE BELOW (but you will want to use `authenticateUser` at some point)
